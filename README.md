@@ -1,10 +1,11 @@
 # sample_conf4nix
 
-NixOS 用の最小サンプル構成です。`UUID` 参照を基本にし、公開しやすいように機種依存の設定や secret 分離は省いています。
+NixOS 25.05 系を前提にした最小サンプル構成です。`UUID` 参照を基本にし、公開しやすいように機種依存の設定や secret 分離は省いています。
 
 ## 方針
 
 - `flake` で管理
+- `nixpkgs` は `nixos-25.05` を参照
 - `fileSystems` は `UUID` を基本にする
 - パスワードは説明用に `initialPassword = "Password"` を使う
 - SDDM テーマや重い追加パッケージは含めない
