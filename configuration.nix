@@ -5,6 +5,10 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrf.kernelModules = [ "ext4"];
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="JP"
+  '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/REPLACE_WITH_ROOT_UUID";
@@ -16,17 +20,22 @@
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/REPLACE_WITH_SWAP_UUID";
-    }
-  ];
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
+  hardware.wirelessRegulatoryDatabase = true;
 
   time.timeZone = "Asia/Tokyo";
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+      qt6Packages.fcitx5-configtool
+    ];
+  };
   i18n.defaultLocale = "en_US.UTF-8";
   console.useXkbConfig = true;
 
